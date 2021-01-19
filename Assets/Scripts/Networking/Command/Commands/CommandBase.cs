@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Networking.Command.Commands.Impl
+﻿namespace Assets.Scripts.Networking.Command.Commands
 {
     public class CommandBase : ICommand
     {

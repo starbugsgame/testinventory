@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Inventory;
-using Assets.Scripts.Networking.Command;
+using Assets.Scripts.Networking.Command.Commands.Impl;
 using Assets.Scripts.Networking.Command.Dispatcher;
-using Assets.Scripts.Networking.Query;
 using UnityEngine;
 
 namespace Assets.Scripts.Networking

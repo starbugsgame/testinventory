@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Networking.Command
+﻿namespace Assets.Scripts.Networking.Command.Dispatcher
 {
     public interface ICommandDispatcher
     {

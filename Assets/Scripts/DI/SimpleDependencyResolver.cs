@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Networking;
-using Assets.Scripts.Networking.Command;
+﻿using Assets.Scripts.Networking.Command;
+using Assets.Scripts.Networking.Command.Commands.Impl;
 using Assets.Scripts.Networking.Command.Handlers;
-using Assets.Scripts.Networking.Query;
+using Assets.Scripts.Networking.Command.Handlers.Impl;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Assets.Scripts.Networking.Command.Handlers
+namespace Assets.Scripts.Networking.Command.Handlers.Impl
 {
     public class GetItemFromInventoryHandler : ICommandHandler<ICommand>
     {

@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.Networking.Command.Commands.Impl;
-
-namespace Assets.Scripts.Networking
+﻿namespace Assets.Scripts.Networking.Command.Commands.Impl
 {
     internal class AddItemToInventoryCommand : CommandBase
     {

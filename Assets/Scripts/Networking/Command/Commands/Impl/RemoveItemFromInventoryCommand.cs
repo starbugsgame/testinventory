@@ -1,8 +1,6 @@
-﻿using Assets.Scripts.Networking.Command.Commands.Impl;
-
-namespace Assets.Scripts.Networking.Query
+﻿namespace Assets.Scripts.Networking.Command.Commands.Impl
 {
-    internal class RemoveItemFromInventoryCommand: CommandBase
+    internal class RemoveItemFromInventoryCommand : CommandBase
     {
         public string Id { get; }
 
