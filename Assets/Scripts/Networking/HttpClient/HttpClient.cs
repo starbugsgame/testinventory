@@ -21,7 +21,7 @@ namespace Assets.Scripts.Networking.HttpClient
 
         private static void OperationCompleted(UnityEngine.AsyncOperation obj)
         {
-            if (((UnityWebRequestAsyncOperation)obj).webRequest.result != UnityWebRequest.Result.Success)
+            if (((UnityWebRequestAsyncOperation)obj).webRequest.responseCode != 200)
             {
                 // Roll back changes on client
             }
