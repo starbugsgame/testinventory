@@ -22,7 +22,7 @@ namespace Assets.Scripts.DI
                 case AddItemToInventoryCommand _:
                     return new AddItemToInventoryHandler();
 
-                case GetItemFromInventoryCommand _:
+                case RemoveItemFromInventoryCommand _:
                     return new GetItemFromInventoryHandler();
             }
 

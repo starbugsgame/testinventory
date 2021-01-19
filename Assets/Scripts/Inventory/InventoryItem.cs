@@ -1,29 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Inventory
 {
-    internal class InventoryItem : MonoBehaviour
+    public class InventoryItem : MonoBehaviour
     {
         [SerializeField]
-        private string id;
+        private string _id;
 
         [SerializeField]
-        private string itemName;
+        private string _itemName;
 
         [SerializeField]
-        private float weight;
+        private float _weight;
 
         [SerializeField]
-        private InventoryItemType type;
+        private InventoryItemType _type;
 
-        public string Id { get => id; private set => id = value; }
-        public string ItemName { get => itemName; private set => itemName = value; }
-        public float Weight { get => weight; private set => weight = value; }
-        internal InventoryItemType Type { get => type; private set => type = value; }
+        public Sprite Sprite;
+
+        public bool IsInBag { get; set; }
+
+        private Rigidbody _rigidbody;
+
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+        }
+
+        public string Id { get => _id; private set => _id = value; }
+        public string ItemName { get => _itemName; private set => _itemName = value; }
+        public float Weight { get => _weight; private set => _weight = value; }
+        internal InventoryItemType Type { get => _type; private set => _type = value; }
+
+        public void DisableRigidBody()
+        {
+            _rigidbody.isKinematic = true;
+        }
+
+        public void EnableRigidBody()
+        {
+            _rigidbody.isKinematic = false;
+        }
     }
 }

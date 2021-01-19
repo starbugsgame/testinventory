@@ -1,39 +1,71 @@
-﻿using Assets.Scripts.Networking;
-using System;
+﻿using Assets.Scripts.Events;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Inventory
 {
     internal class Bag : MonoBehaviour
     {
-        private IList<InventoryItem> items;
+        public ItemTypePosition[] ItemPositions; // Anchors for different item types
 
-        private void Start()
+        private GlobalEvents _globalEvents;
+        private IList<InventoryItem> _items;
+
+        private void Awake()
         {
-            var d = new CommandDispatcher();
-            d.Execute(new AddItemToInventoryCommand("asdasd"));
+            _items = new List<InventoryItem>();
+            _globalEvents = FindObjectOfType<GlobalEvents>();
         }
 
-        public InventoryItem GetItem(string id)
+        private void OnMouseDown()
         {
-            var item = items.SingleOrDefault(x => x.Id == id);
+            _globalEvents.BagClicked.Invoke();
+        }
 
-            if (item!=null)
+        private void Update()
+        {
+            if (Input.GetMouseButton(0)) return;
+
+            // Smooth snapping
+            foreach (var item in _items)
             {
-
-
-
+                item.transform.localPosition = Vector3.Lerp(item.transform.localPosition, Vector3.zero, Time.deltaTime * 10f);
+                item.transform.localRotation = Quaternion.Lerp(item.transform.localRotation, Quaternion.identity, Time.deltaTime * 10f);
             }
-
-            return null;
-
         }
 
-        public void AddItem(InventoryItem item) => items.Add(item);
+        /// <summary>
+        /// Add Item to Bag on client
+        /// </summary>
+        /// <param name="item"></param>
+        public void AddItem(InventoryItem item)
+        {
+            item.DisableRigidBody();
+            var anchor = ItemPositions.Single(x => x.ItemType == item.Type).Transform;
+            item.transform.SetParent(anchor);
+            item.IsInBag = true;
+            if (!_items.Contains(item))
+            {
+                _items.Add(item);
+                _globalEvents.ItemsChanged.Invoke(_items);
+            }
+        }
 
+        /// <summary>
+        /// Remove Item from Bag on client
+        /// </summary>
+        /// <param name="item"></param>
+        public void RemoveItem(InventoryItem item)
+        {
+            item.EnableRigidBody();
+            item.transform.SetParent(null);
+            item.IsInBag = false;
+            if (_items.Contains(item))
+            {
+                _items.Remove(item);
+                _globalEvents.ItemsChanged.Invoke(_items);
+            }
+        }
     }
 }

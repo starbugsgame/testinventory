@@ -1,28 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lean.Touch;
 using UnityEngine;
 
 namespace Assets.Scripts.UI
 {
-    public class OutlineOnHover:MonoBehaviour
+    public class OutlineOnHover : MonoBehaviour
     {
-        private Outline outline;
+        private Outline _outline;
+
+        private LeanSelectable _selectable;
+
         private void Awake()
         {
-            outline = GetComponent<Outline>();
-        }
-        void OnMouseOver()
-        {
-            outline.OutlineWidth = 2;
+            _outline = GetComponent<Outline>();
+            _selectable = GetComponent<LeanSelectable>();
         }
 
-        void OnMouseExit()
+        private void Update()
         {
-            outline.OutlineWidth = 0;
+            if (_selectable.IsSelected)
+            {
+                EnableOutline();
+                return;
+            }
+
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
+
+            if (Physics.Raycast(ray, out RaycastHit hit)) // void OnMouseOver() - not working properly with two cameras
+            {
+                if (hit.collider.gameObject == this.gameObject)
+                {
+                    EnableOutline();
+                }
+                else
+                {
+                    DisableOutline();
+                }
+            }
         }
 
+        private void EnableOutline()
+        {
+            _outline.OutlineWidth = 2;
+        }
+        private void DisableOutline()
+        {
+            _outline.OutlineWidth = 0;
+        }
     }
 }
